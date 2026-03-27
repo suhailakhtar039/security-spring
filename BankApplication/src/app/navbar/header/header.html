@@ -1,1 +1,39 @@
-<p>header works!</p>
+<mat-toolbar class="!bg-black !text-white px-10 flex items-center">
+  <!-- LEFT: LOGO -->
+  <div class="flex flex-col text-xl font-bold leading-[18px] lowercase">
+    <span>Simple</span>
+    <span>Bank</span>
+  </div>
+
+  <!-- RIGHT: NAV -->
+  <nav class="ml-auto flex gap-8 text-sm tracking-wide">
+    <a
+      mat-button
+      class="hover:!underline"
+      routerLink="/"
+      routerLinkActive="!border-b-2 !border-green-500"
+      >HOME</a
+    >
+    <a
+      mat-button
+      class="hover:!underline"
+      routerLink="/login"
+      routerLinkActive="!border-b-2 !border-green-500"
+      >LOGIN</a
+    >
+    <a
+      mat-button
+      class="hover:!underline"
+      routerLink="/contact"
+      routerLinkActive="!border-b-2 !border-green-500"
+      >CONTACT US</a
+    >
+    <a
+      mat-button
+      class="hover:!underline"
+      routerLink="/notices"
+      routerLinkActive="!border-b-2 !border-green-500"
+      >NOTICES</a
+    >
+  </nav>
+</mat-toolbar>
