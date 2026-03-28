@@ -1,1 +1,78 @@
-<p>contact-us works!</p>
+<div class="min-h-screen bg-gray-100 py-10">
+  <h2 class="text-center text-2xl font-semibold mb-8">Contact Us</h2>
+
+  <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+    <!-- LEFT SECTION -->
+    <div class="space-y-6">
+      <!-- Call -->
+      <div class="flex items-start gap-4">
+        <mat-icon class="text-green-600">call</mat-icon>
+        <div>
+          <p class="font-semibold">Call Us</p>
+          <p class="text-sm text-gray-600">+456 68 925 89</p>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="flex items-start gap-4">
+        <mat-icon class="text-green-600">mail</mat-icon>
+        <div>
+          <p class="font-semibold">Email Us</p>
+          <p class="text-sm text-gray-600">support@gmail.com</p>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="flex items-start gap-4">
+        <mat-icon class="text-green-600">location_on</mat-icon>
+        <div>
+          <p class="font-semibold">Address</p>
+          <p class="text-sm text-gray-600">123 Main Street, New York, NY 10030</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SECTION (FORM) -->
+    <div class="space-y-4">
+      <form
+        [formGroup]="contactUsForm"
+        (ngSubmit)="onSubmitofContactUs()"
+        class="grid grid-cols-1 md:grid-cols-2 gap-4"
+      >
+        <!-- Name -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
+
+        <!-- Subject (full width) -->
+        <mat-form-field appearance="outline" class="w-full md:col-span-2">
+          <mat-label>Subject</mat-label>
+          <input matInput formControlName="subject" />
+        </mat-form-field>
+
+        <!-- Message (full width + bigger) -->
+        <mat-form-field appearance="outline" class="w-full md:col-span-2">
+          <mat-label>Message</mat-label>
+          <textarea matInput rows="4" formControlName="message"></textarea>
+        </mat-form-field>
+
+        <!-- Button -->
+        <div class="md:col-span-2 flex justify-center">
+          <button
+            class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-600 cursor-pointer"
+            type="submit"
+          >
+            Send Message
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
