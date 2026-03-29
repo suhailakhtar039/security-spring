@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CardsController {
-    @GetMapping("/cards")
-    public String getCards(){
-        return "Your Card details: ";
+
+    @GetMapping("/myCards")
+    public  String getCardsDetails () {
+        return "Here are the card details from the DB";
     }
+
 }

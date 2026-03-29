@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LoansController {
-    @GetMapping("/loans")
-    public String getLoans(){
-        return "Your loan details: ";
+
+    @GetMapping("/myLoans")
+    public  String getLoansDetails () {
+        return "Here are the loans details from the DB";
     }
+
 }
