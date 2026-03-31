@@ -1,0 +1,16 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Specific IntelliJ config files
+.idea/compiler.xml
+*.xml
+
+# Build / compiled files (optional but recommended)
+target/
+out/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
