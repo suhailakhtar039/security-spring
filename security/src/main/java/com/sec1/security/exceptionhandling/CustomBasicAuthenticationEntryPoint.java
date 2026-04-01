@@ -8,6 +8,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class CustomBasicAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
@@ -16,8 +17,19 @@ public class CustomBasicAuthenticationEntryPoint implements AuthenticationEntryP
                          HttpServletResponse response,
                          AuthenticationException authException)
             throws IOException, ServletException {
-        response.setHeader("suhail-error-reason","Not recognized");
-        response.sendError(HttpStatus.UNAUTHORIZED.value(),
-                HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        LocalDateTime currentTimeStamp = LocalDateTime.now();
+        String message = (authException != null && authException.getMessage() != null)
+                ? authException.getMessage() : "Unauthorized";
+        String path = request.getRequestURI();
+        response.setHeader("suhail-error-reason", "Not recognized");
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.setContentType("application/json;charset=UTF-8");
+
+        String jsonResponse =
+                String.format("{\"timestamp\": \"%s\", \"status\": %d, \"error\": \"%s\", \"message\": \"%s\", \"path\": \"%s\"}",
+                        currentTimeStamp, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                        message, path);
+
+        response.getWriter().write(jsonResponse);
     }
 }
