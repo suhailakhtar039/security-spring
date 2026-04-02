@@ -18,11 +18,12 @@ public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+                .sessionManagement(smc -> smc.invalidSessionUrl("/invalidSession"))
                 .redirectToHttps(rcc -> rcc.disable())
                 .csrf(csrfConfig -> csrfConfig.disable())
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards").authenticated()
-                        .requestMatchers("/notices", "/contact", "/error", "/register").permitAll());
+                        .requestMatchers("/notices", "/contact", "/error", "/register", "/invalidSession").permitAll());
 
         http.formLogin(withDefaults());
 
@@ -41,7 +42,6 @@ public class ProjectSecurityConfig {
 //    public UserDetailsService userDetailsService(DataSource dataSource) {
 //        return new JdbcUserDetailsManager(dataSource);
 //    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
