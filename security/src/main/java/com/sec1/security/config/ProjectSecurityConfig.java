@@ -21,7 +21,7 @@ public class ProjectSecurityConfig {
                 .sessionManagement(smc ->
                         smc
                                 .invalidSessionUrl("/invalidSession")
-                                .maximumSessions(1)
+                                .maximumSessions(3)
                                 .maxSessionsPreventsLogin(true)
                 )
                 .redirectToHttps(rcc -> rcc.disable())
