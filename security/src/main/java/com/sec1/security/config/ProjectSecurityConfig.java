@@ -21,13 +21,13 @@ public class ProjectSecurityConfig {
                 .sessionManagement(smc ->
                         smc
                                 .invalidSessionUrl("/invalidSession")
-                                .maximumSessions(3)
+                                .maximumSessions(1)
                                 .maxSessionsPreventsLogin(true)
                 )
                 .redirectToHttps(rcc -> rcc.disable())
                 .csrf(csrfConfig -> csrfConfig.disable())
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards").authenticated()
+                        .requestMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards","/user").authenticated()
                         .requestMatchers("/notices", "/contact", "/error", "/register", "/invalidSession").permitAll());
 
         http.formLogin(withDefaults());
