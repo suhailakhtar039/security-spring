@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.password.CompromisedPasswordChecker;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -29,6 +30,12 @@ public class ProjectSecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         CsrfTokenRequestAttributeHandler csrfTokenRequestAttributeHandler = new CsrfTokenRequestAttributeHandler();
         http
+                .securityContext(contextConfig ->
+                        contextConfig.requireExplicitSave(false))
+
+                .sessionManagement(sessionConfig ->
+                        sessionConfig.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+
                 .cors(corsConfig ->
                         corsConfig.configurationSource(new CorsConfigurationSource() {
                             @Override
@@ -42,14 +49,16 @@ public class ProjectSecurityConfig {
                                 return config;
                             }
                         }))
-                .csrf(csrfConfig ->
-                        csrfConfig.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
-                .redirectToHttps(rcc -> rcc.disable())
+
                 .csrf(csrfConfig ->
                         csrfConfig.csrfTokenRequestHandler(csrfTokenRequestAttributeHandler)
                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 )
+
+                .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+
+                .redirectToHttps(rcc -> rcc.disable())
+
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user").authenticated()
                         .requestMatchers("/notices", "/contact", "/error", "/register", "/invalidSession").permitAll());
