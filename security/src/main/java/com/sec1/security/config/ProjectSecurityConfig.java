@@ -52,6 +52,7 @@ public class ProjectSecurityConfig {
 
                 .csrf(csrfConfig ->
                         csrfConfig.csrfTokenRequestHandler(csrfTokenRequestAttributeHandler)
+                                .ignoringRequestMatchers("/contact","/register")
                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 )
 
