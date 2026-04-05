@@ -52,7 +52,7 @@ public class ProjectSecurityConfig {
 
                 .csrf(csrfConfig ->
                         csrfConfig.csrfTokenRequestHandler(csrfTokenRequestAttributeHandler)
-                                .ignoringRequestMatchers("/contact","/register")
+                                .ignoringRequestMatchers("/contact", "/register")
                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 )
 
@@ -61,8 +61,19 @@ public class ProjectSecurityConfig {
                 .redirectToHttps(rcc -> rcc.disable())
 
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user").authenticated()
-                        .requestMatchers("/notices", "/contact", "/error", "/register", "/invalidSession").permitAll());
+                        .requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
+
+                        .requestMatchers("/myBalance")
+                        .hasAnyAuthority("VIEWACCOUNT", "VIEWBALANCE")
+
+                        .requestMatchers("/myLoans").hasAuthority("VIEWLOANS")
+
+                        .requestMatchers("/myCards").hasAuthority("VIEWCARDS")
+
+                        .requestMatchers("/user").authenticated()
+
+                        .requestMatchers("/notices", "/contact", "/error", "/register", "/invalidSession")
+                        .permitAll());
 
         http.formLogin(withDefaults());
 
